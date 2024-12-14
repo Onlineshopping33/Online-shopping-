@@ -3,75 +3,612 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Code Playground</title>
+    <title>App with Loading Screen</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
+        
+        #loadingScreen {
             display: flex;
             flex-direction: column;
-            height: 100vh;
-        }
-        #editor {
-            display: flex;
-            flex: 1;
-            border-bottom: 2px solid #ddd;
-        }
-        textarea {
-            flex: 1;
-            margin: 0;
-            padding: 10px;
-            border: none;
-            resize: none;
-            font-family: monospace;
-            font-size: 14px;
-        }
-        #output {
-            flex: 1;
-            background: #f9f9f9;
-            border: none;
-        }
-        iframe {
-            width: 100%;
+            justify-content: center;
+            align-items: center;
             height: 100%;
-            border: none;
+            background-color: #000; /* Black background */
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 9999; /* Always on top */
         }
+
+        .app-icon {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            }
+            50% {
+                transform: scale(1.1);
+                box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            }
+        }
+
+        .progress {
+            width: 80%;
+            height: 5px;
+            background-color: rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            position: relative;
+            margin-top: 20px;
+        }
+
+        .progress .indeterminate {
+            position: absolute;
+            width: 0%;
+            height: 100%;
+            background-color: #00ff00;
+            animation: loading 2s infinite;
+        }
+
+        @keyframes loading {
+            0% {
+                left: -100%;
+                width: 0%;
+            }
+            50% {
+                left: 0;
+                width: 50%;
+            }
+            100% {
+                left: 100%;
+                width: 0%;
+            }
+        }
+
+        /* Main Website */
+        #mainContent {
+            display: none; /* Initially hidden */
+            height: 100%;
+            overflow: auto; /* Allow scrolling after loading */
+        }
+
+        .main-content {
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+    
+    .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.0);
+            color: white;
+            padding: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.0);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .header h1 {
+            font-family: 'Arial', sans-serif;
+            font-size: 24px;
+            animation: fadeInLeft 2s ease;
+            margin: 0;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #00FFFF;
+            font-weight: bold;
+            font-size: 16px;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #00FF00;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0%;
+            height: 2px;
+            background-color: #FFFF00;
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .section {
+            padding: 20px;
+            color: white;
+            text-align: center;
+        }
+
+        .home, .contact, .about {
+            display: none;
+        }
+
+        .home.active,
+        .contact.active,
+        .about.active {
+            display: block;
+        }
+
+        body {
+            background-image: url('    https://i.postimg.cc/05W35vkg/Screenshots-2024-12-12-22-34-04-1.jpg   ');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+   
+
+
+
+.container {
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .box {
+            width: 100%;
+            height: 400px;
+            background: none;
+            display: grid;
+            place-items: center;
+            color: black ;
+            margin: 20px auto;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 2.8s ease, transform 2.8s ease;
+        }
+
+        .box.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .back-btn {
+            position: fixed;
+            bottom: 20px;
+            right: -100%;
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            background-color :rgba(0, 0, 0, 0.9);    
+            color: white  ;
+            cursor: pointer;
+            z-index: 5;
+            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            font-size: 14px;
+            transition: all 0.5s;
+        }
+
+        .back-btn.active {
+            right: 20px;
+        }
+
+        .dot-animation {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #fff;
+            border-radius: 50%;
+            animation: float 1.5s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+                opacity: 0.8;
+            }
+            50% {
+                transform: translateY(-15px);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 0.8;
+            }
+        }
+
+
+/* Simple styling */
+       
+    
+  
+    
+    
+        form {
+            background-color: none;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+            max-width: 400px;
+            margin: 0 auto;
+            Color:yellow  ;
+        }
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+      Input,select {
+            width: 90%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.0);
+            outline:none;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+           width: 50%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.0);
+            outline:none;
+        }
+
+    .bt {
+            background-color:red;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+  .bt:hover {
+            background-color:red;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        #loading {
+            display: none;
+            text-align: center;
+        }
+        #whatsappLink {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+h2{
+
+color:yellow;
+
+}
+
+a {
+            text-decoration: none;
+            color: white  ;
+        }
+
+
+
+
+.head{
+
+text-decoration: none;
+            color:yellow ;
+            font-weight: bold;
+            font-size: 16px;
+            transition: color 0.3s ease;
+            position: relative;
+
+
+
+
+
+
+}
+
+
+.head:hover {
+            color: #00FF00;
+}
+
+.head::after {
+            content: '';
+            position: absolute;
+            width: 0%;
+            height: 2px;
+            background-color:#FFFF00;
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+
+        .head:hover::after {
+            width: 100%;
+        }
+
+
+img{
+
+width: 50%;
+height:50%;
+}
     </style>
 </head>
 <body>
-    <div id="editor">
-        <textarea id="html" placeholder="Write HTML here..."></textarea>
-        <textarea id="css" placeholder="Write CSS here..."></textarea>
-        <textarea id="js" placeholder="Write JavaScript here..."></textarea>
+    <!-- Loading Screen -->
+    <div id="loadingScreen">
+        <img src="https://i.postimg.cc/05W35vkg/Screenshots-2024-12-12-22-34-04-1.jpg" alt="App Icon" class="app-icon" />
+        <div class="progress">
+            <div class="indeterminate"></div>
+        </div>
     </div>
-    <div id="output">
-        <iframe id="preview"></iframe>
+
+    <!-- Main Website Content -->
+    <div id="mainContent">
+        
+            <div class="header">
+     <h1>Online Shopping</h1>
+        <div class="nav-links">
+            <a href="#home" onclick="showSection('home')">Home</a>
+            <a href="#contact" onclick="showSection('contact')">Contact Us</a>
+            <a href="#about" onclick="showSection('about')">About Us</a>
+        </div>
     </div>
+
+    <div id="home" class="section home active">
+        <h2>Welcome to the NANA </h2>
+           <img src=" https://i.postimg.cc/BvkrhCRY/Screenshots-2024-12-12-22-04-05-1.jpg" ><br />
+        <a href="#contact" onclick="showSection('contact')"><button>Buy Now</button></a><br />
+<a href="   https://wa.me/c/94710992021   "><button>viwe more </button></a>
+    </div>
+
+    <div id="contact" class="section contact">
+
+
+<div class="container">
+     <div class="box">
+        
+           <h2 class="head">Welcome to Online Shopping's Account </h2>
+
+    <form id="myForm">
+      
+          <b><i> <p>Please fill in the this sheet login Online Shopping's Whatsapp Account </p>
+   </i></b>
+<hr>
+             <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" required placeholder="Tharidu">
+
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" required placeholder="Shehan">
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required placeholder="info@gmail.com">
+
+        <label for="city">Your city</label>
+        <input type="text" id="city" name="city" required="yes" placeholder="Anuradapura">
+        
+         <label for="Adress">Your Adress</label>
+        <input type="text" id="Adress" name="Adress" required="yes" placeholder="58/C Medavachchiya">
+        
+        <label for="distric">Your distric</label>
+        <input type="text" id="distric" name="distric" required="yes" placeholder="Anuradapura">
+        
+        <label for="date">Your Birthday </label>
+        <input type="date" id="date" name="date" required="yes" placeholder="Birthday">
+
+         
+        
+        
+        
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender" required>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select>
+        
+<p>You can use this WhatsApp account only if you agree to our rules. You can do so by clicking the <b>Check box</b> button below. Do you agree with our rules?</p>
+
+     <label for="checkbox">  </label>
+<input type="checkbox" id="checkbox" name="checkbox" required >
+<br />
+
+I Am <a href=" https://mail.google.com/mail/mu/mp/732/#tl/priority/%5Esmartlabel_personal  ">Forget Email </a><br /><br />
+
+        <button type="submit">Submit</button>
+       <button type="Reset" class="bt">Reset </button>
+
+    </form>
+
+    <div id="loading">
+        <p>Please wait sending…</p>
+    </div>
+
+    <div id="whatsappLink">
+        <p>Sending sucssesful</p>
+    </div>
+        </div>
+        </div>
+   
+    <div class="back-btn"><b>UP</b></div>
+
+
+
+            </div>
+
+    <div id="about" class="section about">
+      
+   The first purpose of creating this website is to provide services that are suitable for your friends and relatives quickly and reliably.  <br /><br />
+
+only  There you can get the product you order within 5 days. 400 rupees will be charged as delivery fee for all the products you order anywhere in Sri Lanka. <br /><br />
+
+
+<h3>Online Shopping. <br />The best thing at the best place.</h3> <br />web Develope by pasindu Nuwan<br /><br />
+
+
+
+&copy online shopping 2018 - 2024 <br>
+        
+        you can read our <a href="" https://www.privacypolicies.com/live/3099089e-5ec4-4340-87a1-fc1ba3972bba ">Privacy policies</a>
+</div>
+        
+    </div>
+
     <script>
-        const htmlEditor = document.getElementById('html');
-        const cssEditor = document.getElementById('css');
-        const jsEditor = document.getElementById('js');
-        const previewFrame = document.getElementById('preview');
+        // Simulate loading process
+        window.addEventListener('load', function () {
+            setTimeout(function () {
+                // Hide loading screen
+                document.getElementById('loadingScreen').style.display = 'none';
+                // Show main content
+                document.getElementById('mainContent').style.display = 'block';
+            }, 10000); // Adjust delay (3 seconds)
+        });
+    
+    
+    function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(function(section) {
+                section.classList.remove('active');
+            });
 
-        function updatePreview() {
-            const htmlCode = htmlEditor.value;
-            const cssCode = `<style>${cssEditor.value}</style>`;
-            const jsCode = `<script>${jsEditor.value}<\/script>`;
-            const fullCode = htmlCode + cssCode + jsCode;
-
-            const previewDocument = previewFrame.contentDocument || previewFrame.contentWindow.document;
-            previewDocument.open();
-            previewDocument.write(fullCode);
-            previewDocument.close();
+            document.getElementById(sectionId).classList.add('active');
         }
 
-        htmlEditor.addEventListener('input', updatePreview);
-        cssEditor.addEventListener('input', updatePreview);
-        jsEditor.addEventListener('input', updatePreview);
 
-        // Initial Preview
-        updatePreview();
+
+
+// Back button functionality
+        var backBtn = document.querySelector(".back-btn");
+        window.addEventListener("scroll", function() {
+            if (window.pageYOffset > 100) {
+                backBtn.classList.add("active");
+            } else {
+                backBtn.classList.remove("active");
+            }
+        });
+        backBtn.addEventListener("click", function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Scroll-triggered animations for boxes
+        const boxes = document.querySelectorAll(".box");
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("visible");
+                }
+            });
+        }, {
+            threshold: 0.5
+        });
+
+        boxes.forEach(box => {
+            observer.observe(box);
+        });
+
+        // Create dot animation effect
+        function createDots() {
+            for (let i = 0; i < 20; i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('dot-animation');
+                dot.style.top = `${Math.random() * 100}%`;
+                dot.style.left = `${Math.random() * 100}%`;
+                dot.style.animationDuration = `${1.0 + Math.random()}s`;
+                document.body.appendChild(dot);
+            }
+        }
+
+        createDots();
+
+
+
+
+document.getElementById('myForm').addEventListener('submit', function(event) {
+            event.preventDefault();  // Prevent default form submission
+
+            // Check if online
+            if (navigator.onLine) {
+                // Show loading animation
+                document.getElementById('loading').style.display = 'block';
+
+                // Get form data
+                const firstName = document.getElementById('firstName').value;
+                const lastName = document.getElementById('lastName').value;
+                const email = document.getElementById('email').value;
+                const city = document.getElementById('city').value;
+                const Adress = document.getElementById('Adress').value;
+                const distric = document.getElementById('distric').value;
+                const date = document.getElementById('date').value;
+                const gender = document.getElementById('gender').value;
+                const checkbox = document.getElementById('checkbox').value;
+
+    
+                // Your WhatsApp number (in international format, e.g., +11234567890)
+                const whatsappNumber = '+94710992021';  
+
+                // WhatsApp message content
+                const whatsappMessage = `First Name: ${firstName}\nLast Name: ${lastName}\nEmail: ${email}\ncity: ${city}\nAdress: ${Adress}\ndistric: ${distric}\ndate: ${date}\nGender: ${gender}\ncheckbox: ${checkbox}`;
+
+                // Construct WhatsApp API URL
+                const whatsappUrl = `https://api.whatsapp.com/send?phone=${+94710992021}&text=${encodeURIComponent(whatsappMessage)}`;
+
+                // Simulate loading animation for 3 seconds
+                setTimeout(function() {
+                    // Hide loading animation
+                    document.getElementById('loading').style.display = 'none';
+
+                    // Show confirmation message
+                    document.getElementById('whatsappLink').style.display = 'block';
+
+                    // Redirect to WhatsApp with the pre-filled message
+                    window.location.href = whatsappUrl;
+                }, 3000); // 3 seconds loading simulation
+            } else {
+                alert("No internet connection. Please check your network.");
+            }
+        });
+
+
+    
     </script>
 </body>
 </html>
