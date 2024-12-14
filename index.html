@@ -6,84 +6,7 @@
     <title>App with Loading Screen</title>
     <style>
         
-        #loadingScreen {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
-            background-color: #000; /* Black background */
-            color: white;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 9999; /* Always on top */
-        }
-
-        .app-icon {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            animation: pulse 2s infinite ease-in-out;
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-                box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-            }
-            50% {
-                transform: scale(1.1);
-                box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
-            }
-        }
-
-        .progress {
-            width: 80%;
-            height: 5px;
-            background-color: rgba(255, 255, 255, 0.2);
-            overflow: hidden;
-            position: relative;
-            margin-top: 20px;
-        }
-
-        .progress .indeterminate {
-            position: absolute;
-            width: 0%;
-            height: 100%;
-            background-color: #00ff00;
-            animation: loading 2s infinite;
-        }
-
-        @keyframes loading {
-            0% {
-                left: -100%;
-                width: 0%;
-            }
-            50% {
-                left: 0;
-                width: 50%;
-            }
-            100% {
-                left: 100%;
-                width: 0%;
-            }
-        }
-
-        /* Main Website */
-        #mainContent {
-            display: none; /* Initially hidden */
-            height: 100%;
-            overflow: auto; /* Allow scrolling after loading */
-        }
-
-        .main-content {
-            padding: 20px;
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-        }
+        
     
     .header {
             display: flex;
@@ -321,11 +244,14 @@ color:yellow;
 
 a {
             text-decoration: none;
-            color: white  ;
+            color: blue  ;
         }
 
 
-
+.privacy {
+            text-decoration: none;
+            color:blue ;
+        }
 
 .head{
 
@@ -366,22 +292,105 @@ text-decoration: none;
 
 img{
 
-width: 50%;
+width: 100%;
 height:50%;
+border-radius:6%;
 }
+
+#About{
+
+width: 10%;
+height:10%;
+
+
+}
+
+.h1{
+padding: 10px 20px;
+  background-color: none;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  opacity: 0;
+  transform: scale(0.9); /* Slightly smaller initially */
+  animation: fadeInScale 0.8s ease 0.9s forwards; /* Slightly delayed animation */
+  
+}
+
+.feedback-form {
+  display: none;
+  margin-top: 20px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transform: translateY(50px); /* Initial position for animation */
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.feedback-form.show {
+  display: block;
+  animation: slideUp 0.5s ease forwards; /* Applying the animation */
+}
+
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(50px); /* Starts 50px below */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); /* Ends in its final position */
+  }
+}
+
+textarea {
+  width: 50%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: none;
+  margin-bottom: 10px; /* Adds space before the button */
+  opacity: 0;
+  transform: scale(0.9); /* Slightly smaller initially */
+  animation: fadeInScale 0.5s ease 0.2s forwards; /* Delays after slide-up */
+Outline:none;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  opacity: 0;
+  transform: scale(0.9); /* Slightly smaller initially */
+  animation: fadeInScale 0.5s ease 0.4s forwards; /* Slightly delayed animation */
+  
+}
+
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+
+
     </style>
 </head>
 <body>
-    <!-- Loading Screen -->
-    <div id="loadingScreen">
-        <img src="https://i.postimg.cc/05W35vkg/Screenshots-2024-12-12-22-34-04-1.jpg" alt="App Icon" class="app-icon" />
-        <div class="progress">
-            <div class="indeterminate"></div>
-        </div>
-    </div>
-
-    <!-- Main Website Content -->
-    <div id="mainContent">
+    
+    
         
             <div class="header">
      <h1>Online Shopping</h1>
@@ -389,13 +398,136 @@ height:50%;
             <a href="#home" onclick="showSection('home')">Home</a>
             <a href="#contact" onclick="showSection('contact')">Contact Us</a>
             <a href="#about" onclick="showSection('about')">About Us</a>
+
+            
         </div>
-    </div>
+   </div>
 
     <div id="home" class="section home active">
-        <h2>Welcome to the NANA </h2>
-           <img src=" https://i.postimg.cc/BvkrhCRY/Screenshots-2024-12-12-22-04-05-1.jpg" ><br />
-        <a href="#contact" onclick="showSection('contact')"><button>Buy Now</button></a><br />
+        <h2>Welcome to the Online Shopping</h2>
+
+                     
+<label><h1 class="h1">Gift Box </h1></label>
+           
+
+
+    <!-- Add multiple images -->
+    <img class="dynamic-image" src="https://i.postimg.cc/BvkrhCRY/Screenshots-2024-12-12-22-04-05-1.jpg" style="filter: blur(8px); opacity: 0.5;" alt="Image 1">   
+   <a href="#contact" onclick="showSection('contact')"><button>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="9" cy="21" r="1"></circle>
+  <circle cx="20" cy="21" r="1"></circle>
+  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61l1.18-7.39H6"></path>
+</svg>
+Buy Now</button></a><br />
+   <img class="dynamic-image" src="   https://i.postimg.cc/X7MLFjbJ/Screenshots-2024-12-14-11-13-17-1.jpg     " style="filter: blur(8px); opacity: 0.5;" alt="Image 3"><br />
+  <a href="#contact" onclick="showSection('contact')"><button>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="9" cy="21" r="1"></circle>
+  <circle cx="20" cy="21" r="1"></circle>
+  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61l1.18-7.39H6"></path>
+</svg>
+Buy Now</button></a><br />
+ <img class="dynamic-image" src="    https://i.postimg.cc/TwF9tG5t/Screenshots-2024-12-14-11-13-26-1.jpg   " style="filter: blur(8px); opacity: 0.5;" alt="Image 3"><br />
+ <a href="#contact" onclick="showSection('contact')"><button>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="9" cy="21" r="1"></circle>
+  <circle cx="20" cy="21" r="1"></circle>
+  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61l1.18-7.39H6"></path>
+</svg>
+Buy Now</button></a><br />
+<img class="dynamic-image" src="   https://i.postimg.cc/V66G7DGk/Screenshots-2024-12-14-11-13-43-1.jpg    " style="filter: blur(8px); opacity: 0.5;" alt="Image 3"><br />
+   <a href="#contact" onclick="showSection('contact')"><button>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="9" cy="21" r="1"></circle>
+  <circle cx="20" cy="21" r="1"></circle>
+  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61l1.18-7.39H6"></path>
+</svg>
+Buy Now</button></a><br />
+
+<img class="dynamic-image" src="   https://i.postimg.cc/W15f0B8H/Screenshots-2024-12-14-11-14-14-1.jpg    " style="filter: blur(8px); opacity: 0.5;" alt="Image 3"><br />
+   <a href="#contact" onclick="showSection('contact')"><button>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="9" cy="21" r="1"></circle>
+  <circle cx="20" cy="21" r="1"></circle>
+  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61l1.18-7.39H6"></path>
+</svg>
+Buy Now</button></a><br />
+
+
+<img class="dynamic-image" src="  https://i.postimg.cc/02x9J7px/Screenshots-2024-12-14-11-14-33-1.jpg     " style="filter: blur(8px); opacity: 0.5;" alt="Image 3"><br />
+   <a href="#contact" onclick="showSection('contact')"><button>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="9" cy="21" r="1"></circle>
+  <circle cx="20" cy="21" r="1"></circle>
+  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61l1.18-7.39H6"></path>
+</svg>
+Buy Now</button></a><br />
+
+<img class="dynamic-image" src="   https://i.postimg.cc/BZ7CjCWP/Screenshots-2024-12-14-11-14-43-1.jpg  " style="filter: blur(8px); opacity: 0.5;" alt="Image 3"><br />
+   <a href="#contact" onclick="showSection('contact')"><button>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="9" cy="21" r="1"></circle>
+  <circle cx="20" cy="21" r="1"></circle>
+  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61l1.18-7.39H6"></path>
+</svg>
+Buy Now</button></a><br />
+
+<img class="dynamic-image" src="   https://i.postimg.cc/50CFj88L/Screenshots-2024-12-14-11-14-52-1.jpg    " style="filter: blur(8px); opacity: 0.5;" alt="Image 3"><br />
+   <a href="#contact" onclick="showSection('contact')"><button>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="9" cy="21" r="1"></circle>
+  <circle cx="20" cy="21" r="1"></circle>
+  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61l1.18-7.39H6"></path>
+</svg>
+Buy Now</button></a><br />
+
+<img class="dynamic-image" src="   https://i.postimg.cc/ryGNJLtW/Screenshots-2024-12-14-11-15-09-1.jpg " style="filter: blur(8px); opacity: 0.5;" alt="Image 3"><br />
+   <a href="#contact" onclick="showSection('contact')"><button>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="9" cy="21" r="1"></circle>
+  <circle cx="20" cy="21" r="1"></circle>
+  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61l1.18-7.39H6"></path>
+</svg>
+Buy Now</button></a><br />
+
+<img class="dynamic-image" src="  https://i.postimg.cc/L8bGxpFp/Screenshots-2024-12-14-11-15-16-1.jpg   " style="filter: blur(8px); opacity: 0.5;" alt="Image 3"><br />
+   <a href="#contact" onclick="showSection('contact')"><button>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="9" cy="21" r="1"></circle>
+  <circle cx="20" cy="21" r="1"></circle>
+  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61l1.18-7.39H6"></path>
+</svg>
+Buy Now</button></a><br />
+
+<img class="dynamic-image" src="  https://i.postimg.cc/65ShS5qY/Screenshots-2024-12-14-11-15-25-1.jpg  " style="filter: blur(8px); opacity: 0.5;" alt="Image 3"><br />
+   <a href="#contact" onclick="showSection('contact')"><button>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="9" cy="21" r="1"></circle>
+  <circle cx="20" cy="21" r="1"></circle>
+  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61l1.18-7.39H6"></path>
+</svg>
+Buy Now</button></a><br />
+<label><h1 class="h1">Boys Item</h1></label>
+<img class="dynamic-image" src="   https://i.postimg.cc/BZ7CjCWP/Screenshots-2024-12-14-11-14-43-1.jpg  " style="filter: blur(8px); opacity: 0.5;" alt="Image 3"><br />
+   <a href="#contact" onclick="showSection('contact')"><button>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="9" cy="21" r="1"></circle>
+  <circle cx="20" cy="21" r="1"></circle>
+  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61l1.18-7.39H6"></path>
+</svg>
+Buy Now</button></a><br />
+
+<img class="dynamic-image" src="   https://i.postimg.cc/BZ7CjCWP/Screenshots-2024-12-14-11-14-43-1.jpg  " style="filter: blur(8px); opacity: 0.5;" alt="Image 3"><br />
+   <a href="#contact" onclick="showSection('contact')"><button>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="9" cy="21" r="1"></circle>
+  <circle cx="20" cy="21" r="1"></circle>
+  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61l1.18-7.39H6"></path>
+</svg>
+Buy Now</button></a><br />
+
+
 <a href="   https://wa.me/c/94710992021   "><button>viwe more </button></a>
     </div>
 
@@ -443,16 +575,30 @@ height:50%;
             <option value="female">Female</option>
         </select>
         
-<p>You can use this WhatsApp account only if you agree to our rules. You can do so by clicking the <b>Check box</b> button below. Do you agree with our rules?</p>
+<p>You can use this WhatsApp account only if you agree to our rules. You can do so by clicking the <b>Check box</b> button below.  Do you agree with our rules?</p>
 
      <label for="checkbox">  </label>
 <input type="checkbox" id="checkbox" name="checkbox" required >
 <br />
 
-I Am <a href=" https://mail.google.com/mail/mu/mp/732/#tl/priority/%5Esmartlabel_personal  ">Forget Email </a><br /><br />
+I Am <a href="    https://myaccount.google.com/?utm_source=sign_in_no_continue&pli=1    ">Forget Email </a> or create <a href="   https://mail.google.com/mail/mu/mp/732/#    ">New Account </a><br /><br />
 
-        <button type="submit">Submit</button>
-       <button type="Reset" class="bt">Reset </button>
+        <button type="submit">
+
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M12 5v14M5 12l7 7 7-7"></path>
+</svg>
+
+
+
+Submit</button>
+
+       <button type="Reset" class="bt">
+
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M3 12h18M12 3v18M5 16h2v2H5zm0-4h2v2H5zM5 8h2v2H5zM13 16h2v2h-2zm0-4h2v2h-2zM13 8h2v2h-2z"></path>
+</svg>
+Reset </button>
 
     </form>
 
@@ -481,15 +627,31 @@ only  There you can get the product you order within 5 days. 400 rupees will be 
 
 <h3>Online Shopping. <br />The best thing at the best place.</h3> <br />web Develope by pasindu Nuwan<br /><br />
 
+<img src="https://i.postimg.cc/Hs9VZZvv/Video-Capture-20241213-103305-1.jpg" id="About"><br />
+
+&copy online shopping 2018 - 2024
 
 
-&copy online shopping 2018 - 2024 <br>
-        
-        you can read our <a href="" https://www.privacypolicies.com/live/3099089e-5ec4-4340-87a1-fc1ba3972bba ">Privacy policies</a>
-</div>
-        
+<div class="feedback-container">
+    <button class="feedback-button" onclick="showFeedbackForm()">
+
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M21 11.5c0-1.66-1.34-3-3-3h-4V3l-5 5 5 5v-3h4c1.66 0 3-1.34 3-3zM3 13.5c0 1.66 1.34 3 3 3h4v3l5-5-5-5v3H6c-1.66 0-3 1.34-3 3z"></path>
+</svg>
+
+Feedback</button>
+
+    <div class="feedback-form" id="feedbackForm">
+      <textarea id="feedbackText" placeholder=" write a your comment " rows="4"></textarea>
+      <button onclick="submitFeedback()">Submit</button>
     </div>
 
+
+    <p> you can read our <a class=" privacy "href="   https://www.privacypolicies.com/live/9a33fac0-a144-4240-9be3-9afe566aaedf    ">privacy policy </a> and <a class=" privacy " href="   https://www.privacypolicies.com/live/3b0f9a04-173e-4136-be31-1c959844cd9b">Terms and condition</a></p>
+
+  </div>
+</div>
+    </div>
     <script>
         // Simulate loading process
         window.addEventListener('load', function () {
@@ -509,9 +671,7 @@ only  There you can get the product you order within 5 days. 400 rupees will be 
 
             document.getElementById(sectionId).classList.add('active');
         }
-
-
-
+ 
 
 // Back button functionality
         var backBtn = document.querySelector(".back-btn");
@@ -608,7 +768,55 @@ document.getElementById('myForm').addEventListener('submit', function(event) {
         });
 
 
+    function showFeedbackForm() {
+  const form = document.getElementById('feedbackForm');
+  form.classList.toggle('show');
+}
+
+function submitFeedback() {
+  const feedback = document.getElementById('feedbackText').value;
+  if (feedback) {
+    const email = "shanubaby82@gmali.com"; // Replace with your email
+    const subject = "Feedback from user";
+    const body = `Feedback: ${feedback}`;
+    const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     
+    window.location.href = mailtoLink;
+  } else {
+    alert(" please Comment required .");
+  }
+}
+
+// Function to check internet connection and update all images
+function checkInternetConnection() {
+    // Select all dynamic images
+    const images = document.querySelectorAll(".dynamic-image");
+    
+    if (navigator.onLine) {
+        // Remove blur effect from all images if online
+        images.forEach(image => {
+            image.style.filter = "none";
+            image.style.opacity = "1";
+        });
+    } else {
+        // Apply blur effect to all images if offline
+        images.forEach(image => {
+            image.style.filter = "blur(8px)";
+            image.style.opacity = "0.5";
+        });
+    }
+}
+
+// Add event listeners for online/offline events
+window.addEventListener('online', checkInternetConnection);
+window.addEventListener('offline', checkInternetConnection);
+
+// Initial check when page loads
+window.addEventListener('load', checkInternetConnection);
+
+
+
+
     </script>
 </body>
 </html>
